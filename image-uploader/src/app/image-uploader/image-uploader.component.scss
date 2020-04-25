@@ -1,0 +1,181 @@
+
+.form-stacked {
+    display: flex;
+    flex-direction: column;
+    .mat-form-field {
+        display: block;
+    }
+}
+.card {
+    border-color: #EDEDED;
+    &-title {
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .action {
+        top: 10px;
+        right: 10px;
+        position: absolute;
+    }
+    &:hover {
+        .mat-icon-button {
+            opacity: 1;
+        }
+    }
+    border-color: #EDEDED;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+}
+.card-header {
+    font-weight: 500;
+    font-size: 1.1428571rem;
+    &.has-action {
+        padding-top: 16px;
+        .card-title {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            padding-right: 30px;
+            padding-left: 30px;
+            display: block;
+        }
+    }
+}
+.card-body{
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+.fileuploader-theme-dragdrop .fileuploader-input {
+    border: 2px dashed #c3e2c7;
+    border-radius: 0.25rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 1rem;
+    text-align: center;
+}
+.fileuploader-theme-dragdrop .fileuploader-input-caption {
+    border: 0!important;
+    margin: 0!important;
+}
+.fileuploader-theme-dragdrop p {
+    color: #e2d1d1a6;
+}
+.fileuploader-input {
+    margin-bottom: 0;
+}
+.fileuploader-input-button {
+    border-radius: 0.25rem;
+    margin-bottom: 0;
+    padding: 0 1rem;
+    cursor: pointer;
+}
+.fileuploader-items {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.fileuploader-item-image {
+    border-radius: 4px;
+    padding: 3px;
+    border: 1px solid #EDEDED;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.fileuploader-item-image img {
+    max-width: 100%;
+    max-height: 100%;
+}
+.fileuploader-items-list {
+    border-bottom: 1px solid #EDEDED;
+}
+.fileuploader-items .fileuploader-item .columns {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 10px 0;
+}
+.fileuploader-items .fileuploader-item .columns-thumbnail {
+    height: 64px;
+    width: 64px;
+}
+.fileuploader-items .fileuploader-item .column-title {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    flex: 1;
+}
+.fileuploader-items .fileuploader-item .column-title h5 {
+    font-size: 1rem;
+    font-weight: normal;
+    color: #484848;
+    word-wrap: anywhere;
+    word-break: break-all;
+}
+.fileuploader-items .fileuploader-item .columns-actions .mat-icon-button {
+    color: #F16E69;
+}
+.fileuploader-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0 0 0;
+    color: #959595;
+}
+.fileuploader-info .mat-icon {
+    margin-left: 0.5rem;
+}
+.fileuploader-input {
+    display: flex;
+}
+.fileuploader-input .fileuploader-input-caption {
+    position: relative;
+    display: inline-block;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+    padding: 0 16px;
+    line-height: 36px;
+    background: #fff;
+    border: 1px solid #ebeef1;
+    border-radius: 0.25rem;   
+    box-shadow: 0 4px 18px rgba(0,0,0,.01);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-right: 10px;
+    color:#e2d1d1a6;
+    font-weight: normal;
+}
+.fileuploader-input .fileuploader-input-button {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background:#34b34f;
+    color: #fff;
+    box-shadow: 0 4px 18px rgba(0,0,0,.04);
+    white-space: nowrap;
+    line-height: 36px;
+    display: inline-block;
+}
+.fileuploader-input-caption{
+    font-size: 1.25rem;
+}
+
+.wrapper{   
+    text-align: center;
+    padding: 0px;   
+    margin:100px 406px;
+}
