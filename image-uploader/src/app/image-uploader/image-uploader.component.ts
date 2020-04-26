@@ -57,6 +57,8 @@ export class ImageUploaderComponent implements OnInit {
             Url: result.data.base64,
             DisplayName: result.data.name
           });
+        }else{
+          this.uploadInput.nativeElement.value = ''
         }
       });
     }
