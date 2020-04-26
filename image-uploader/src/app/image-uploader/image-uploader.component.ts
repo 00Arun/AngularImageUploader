@@ -16,30 +16,60 @@ export class ImageUploaderComponent implements OnInit {
     private alertService: AlertService,
     public dialogService: DialogService
   ) { }
-
   ngOnInit(): void {
   }
-  public UploadFile(files) {
-    const dialogRef = this.dialog.open(CroppedComponent, {
-      width: "590px",
-      height: "484px",
-      data: files,
-      disableClose: true
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result.event != 'close') {
-        this.urlsDetails.push({
-          Url: result.data.base64,
-          DisplayName: result.data.name
-        });
+  public UploadFile(files) {   
+    let imgae = files.target.files[0];
+    let IsValidUpload = false;
+    let StatusMessage: string;
+    const allowedExtensions = ["jpg", "jpeg", "png"];
+    const fileItem = imgae.size / 1024 / 1024;
+    const FileExt = imgae.type.split("/")[1];
+    for (let i = 0; i < allowedExtensions.length; i++) {
+      if (FileExt === allowedExtensions[i]) {
+        IsValidUpload = true;
+        if (fileItem > 5) {
+          StatusMessage = "Each File should be less than 5 MB of size.";
+          IsValidUpload = false;
+          return;
+        }
+        break;
+      } else {
+        StatusMessage = "OOps!! Only jpg, jpeg and png files are allowed.";
+        IsValidUpload = false;
       }
-    });
+    }
+    if (IsValidUpload === false) {
+      this.alertService.showWarning("", StatusMessage);
+      return;
+    } else {
+      const dialogRef = this.dialog.open(CroppedComponent, {
+        width: "590px",
+        height: "484px",
+        data: files,
+        disableClose: true
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result.event != 'close') {
+          this.urlsDetails.push({
+            Url: result.data.base64,
+            DisplayName: result.data.name
+          });
+        }
+      });
+    }
   }
   public dropFiles(event): void {
     if (event.dataTransfer) {
       if (event.dataTransfer.types[0] === "Files") {
-
+        let inputMarkup = {
+          target: {
+            files: event.dataTransfer.files
+          }
+        }
+        this.UploadFile(inputMarkup);
       } else {
+        this.alertService.showError("", "OOps!! something goes wrong");
         return;
       }
     }
@@ -53,8 +83,9 @@ export class ImageUploaderComponent implements OnInit {
     event.preventDefault();
     this.dropFiles(event);
   }
-  public onDeleteCall() {
-
+  public onDeleteCall(name: string, index: number) {
+    if (index !== -1) {
+      this.urlsDetails.splice(index, 1);
+    }
   }
-
 }

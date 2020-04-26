@@ -12,6 +12,7 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
 export class CroppedComponent implements OnInit {
   imageChangedEvent: any = '';
   croppedImage: any = '';
+  loading = true
   constructor(
     private alertService: AlertService,
     public dialog: MatDialog,
@@ -29,13 +30,14 @@ export class CroppedComponent implements OnInit {
     this.croppedImage = event.base64;
   }
   imageLoaded() {
-    // show cropper
+   //this.loading = false;
   }
   cropperReady() {
-    // cropper ready
+    this.loading = false;
   }
   loadImageFailed() {
-    this.alertService.showError("", "OOps!! unable to load image.")
+    this.alertService.showError("", "OOps!! unable to load image.");
+    this.loading = false;
   }
   crop() {
     let imageDetails = {
