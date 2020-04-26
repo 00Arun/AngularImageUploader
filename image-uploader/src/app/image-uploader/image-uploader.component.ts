@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogService } from '../_services/dialog.service';
 import { AlertService } from '../_services/alert.service';
@@ -11,6 +11,8 @@ import { CroppedComponent } from '../cropped/cropped.component';
 })
 export class ImageUploaderComponent implements OnInit {
   urlsDetails = [];
+  @ViewChild("uploader") uploadInput: ElementRef;
+
   constructor(
     public dialog: MatDialog,
     private alertService: AlertService,
@@ -18,7 +20,7 @@ export class ImageUploaderComponent implements OnInit {
   ) { }
   ngOnInit(): void {
   }
-  public UploadFile(files) {   
+  public UploadFile(files) {
     let imgae = files.target.files[0];
     let IsValidUpload = false;
     let StatusMessage: string;
@@ -85,6 +87,8 @@ export class ImageUploaderComponent implements OnInit {
   }
   public onDeleteCall(name: string, index: number) {
     if (index !== -1) {
+      console.log(this.uploadInput);
+      this.uploadInput.nativeElement.value = ''
       this.urlsDetails.splice(index, 1);
     }
   }

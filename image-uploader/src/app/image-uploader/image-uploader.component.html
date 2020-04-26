@@ -5,7 +5,7 @@
                 <div class="card-body">
                     <h5 class="card-title mb-3">Photos & Videos</h5>
                     <div class="fileuploader fileuploader-theme-dragdrop">
-                        <input id="input-file" type="file" (change)="UploadFile($event)" class="cdk-visually-hidden" />
+                        <input id="input-file" type="file" #uploader (change)="UploadFile($event)" class="cdk-visually-hidden" />
                         <label for="input-file" class="fileuploader-input" (dragover)="ondragover($event)"
                             (drop)="ondrop($event)">
                             <div class="fileuploader-input-inner">
