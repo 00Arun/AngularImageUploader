@@ -41,7 +41,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-
+import { MatConfirmDialogComponent } from '../mat-confirm-dialog/mat-confirm-dialog.component';
 @NgModule({
   exports: [
     A11yModule,
@@ -133,6 +133,7 @@ import { MatTreeModule } from '@angular/material/tree';
     PortalModule,
     ScrollingModule
   ],
-  declarations: []
+  declarations: [MatConfirmDialogComponent],
+  entryComponents: [MatConfirmDialogComponent]
 })
 export class MaterialModule { }

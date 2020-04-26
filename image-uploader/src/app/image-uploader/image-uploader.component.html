@@ -1,12 +1,11 @@
 <div class="page-content">
-    <div fxLayout="column"fxLayoutGap="15px" fxLayout.gt-md="row" fxLayoutGap.gt-md="30px">
+    <div fxLayout="column" fxLayoutGap="15px" fxLayout.gt-md="row" fxLayoutGap.gt-md="30px">
         <div fxFlex="40" class="wrapper">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title mb-3">Photos & Videos</h5>
                     <div class="fileuploader fileuploader-theme-dragdrop">
-                        <input id="input-file" multiple #UploadElement type="file"
-                            (change)="UploadFile($event.target.files)" class="cdk-visually-hidden" />
+                        <input id="input-file" type="file" (change)="UploadFile($event)" class="cdk-visually-hidden" />
                         <label for="input-file" class="fileuploader-input" (dragover)="ondragover($event)"
                             (drop)="ondrop($event)">
                             <div class="fileuploader-input-inner">
@@ -20,6 +19,7 @@
                                 </div>
                             </div>
                         </label>
+
                         <!--//.fileuploader-input-->
                         <div class="fileuploader-items">
                             <div class="fileuploader-items-list" *ngFor="let item of urlsDetails; let i = index">
@@ -27,10 +27,7 @@
                                 <div class="columns">
                                   <div class="columns-thumbnail">
                                     <div class="fileuploader-item-image">
-                                      <img *ngIf="item.fileType=='image'" #imgList [src]="item.Url" />
-                                      <video *ngIf="item.fileType=='video'" width="100%" height="100%" controls>
-                                        <source type="video/mp4" [src]="item.Url">
-                                      </video>
+                                      <img [src]="item.Url" />                                  
                                     </div>
                                   </div>
                                   <div class="column-title">
@@ -38,7 +35,7 @@
                                   </div>
                                   <div class="columns-actions">
                                     <button type="button" mat-icon-button matTooltip="Delete" matTooltipPosition="above"
-                                      (click)="onDeleteCall(item.DisplayName, i)">
+                                      (click)="onDeleteCall()">
                                       <mat-icon>remove_circle</mat-icon>
                                     </button>
                                   </div>
@@ -51,7 +48,7 @@
                           </div>
                         <!--//.fileuploader-items-->
                         <div class="fileuploader-info">
-                            Image and Video specifications
+                            Image specifications
                             <mat-icon
                                 matTooltip="Image must be less than 5MB. Allowed file types : jpg, jpeg, png. Image dimensions: Width 300px and Height 127px."
                                 matTooltipPosition="after" class="help">error_outline</mat-icon>
@@ -61,7 +58,6 @@
                     <!--//.fileuploader-->
                 </div>
             </div>
-
-        </div>      
+        </div>
     </div>
 </div>

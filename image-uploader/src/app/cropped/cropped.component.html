@@ -1,0 +1,17 @@
+<mat-dialog-content>
+    <div class="img-section">
+        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+            format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+        <!-- <img [src]="croppedImage" /> -->
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions class="mat-action">
+    <div class="btn-wrapper">
+        <div class="mat-btn">
+            <button mat-flat-button (click)="crop()" color="primary">Crop</button>
+            <button mat-button (click)="closeDialog()">Cancel</button>
+        </div>
+    </div>
+</mat-dialog-actions>

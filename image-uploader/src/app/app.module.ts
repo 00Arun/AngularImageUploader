@@ -8,10 +8,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './MaterialModels/material.module';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CroppedComponent } from './cropped/cropped.component';
+import { ToastrModule } from 'ngx-toastr';
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 @NgModule({
   declarations: [
     AppComponent,
-    ImageUploaderComponent
+    ImageUploaderComponent,
+    CroppedComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +25,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     FlexLayoutModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    ImageCropperModule
   ],
   providers: [],
   bootstrap: [AppComponent]
