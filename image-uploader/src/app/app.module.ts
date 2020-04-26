@@ -26,7 +26,11 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     FlexLayoutModule,
     MaterialModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      progressBar: true,
+      progressAnimation:'decreasing',
+      positionClass:'toast-bottom-center'
+    }),
     ImageCropperModule
   ],
   providers: [],

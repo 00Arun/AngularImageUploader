@@ -31,9 +31,8 @@ export class ImageUploaderComponent implements OnInit {
       if (FileExt === allowedExtensions[i]) {
         IsValidUpload = true;
         if (fileItem > 5) {
-          StatusMessage = "Each File should be less than 5 MB of size.";
+          StatusMessage = "File size should be less than 5 MB.";
           IsValidUpload = false;
-          return;
         }
         break;
       } else {
@@ -43,7 +42,6 @@ export class ImageUploaderComponent implements OnInit {
     }
     if (IsValidUpload === false) {
       this.alertService.showWarning("", StatusMessage);
-      return;
     } else {
       const dialogRef = this.dialog.open(CroppedComponent, {
         width: "590px",
@@ -57,7 +55,7 @@ export class ImageUploaderComponent implements OnInit {
             Url: result.data.base64,
             DisplayName: result.data.name
           });
-        }else{
+        } else {
           this.uploadInput.nativeElement.value = ''
         }
       });
