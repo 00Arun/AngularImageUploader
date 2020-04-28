@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogService } from '../_services/dialog.service';
-import { AlertService } from '../_services/alert.service';
-import { CroppedComponent } from '../cropped/cropped.component';
+import { AlertService } from 'src/app/_services/alert.service';
+import { DialogService } from 'src/app/_services/dialog.service';
+import { NgImageCropperComponent } from '../ng-image-cropper/ng-image-cropper.component';
+
 
 @Component({
   selector: 'app-image-uploader',
@@ -43,7 +44,7 @@ export class ImageUploaderComponent implements OnInit {
     if (IsValidUpload === false) {
       this.alertService.showWarning("", StatusMessage);
     } else {
-      const dialogRef = this.dialog.open(CroppedComponent, {
+      const dialogRef = this.dialog.open(NgImageCropperComponent, {
         width: "590px",
         height: "484px",
         data: files,
@@ -86,10 +87,18 @@ export class ImageUploaderComponent implements OnInit {
     this.dropFiles(event);
   }
   public onDeleteCall(name: string, index: number) {
-    if (index !== -1) {
-      console.log(this.uploadInput);
-      this.uploadInput.nativeElement.value = ''
-      this.urlsDetails.splice(index, 1);
-    }
+    this.dialogService
+      .openConfirmDialog("Are you sure you want delete this image.")
+      .afterClosed()
+      .subscribe(res => {
+        if (res) {
+          if (index !== -1) {
+            console.log(this.uploadInput);
+            this.uploadInput.nativeElement.value = ''
+            this.urlsDetails.splice(index, 1);
+          }
+        }
+      });
   }
+
 }

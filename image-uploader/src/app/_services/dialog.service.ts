@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatConfirmDialogComponent } from '../mat-confirm-dialog/mat-confirm-dialog.component';
+import { MatConfirmDialogComponent } from '../angular-uploader/mat-confirm-dialog/mat-confirm-dialog.component';
+
 
 
 @Injectable({
@@ -21,7 +22,8 @@ export class DialogService {
 			}
 		});
 	}
-	openOfferConfirmDialog(msg) {
+
+	popup(msg) {
 		return this.dialog.open(MatConfirmDialogComponent, {
 			width: '390px',
 			panelClass: 'confirm-dialog-container',
@@ -29,21 +31,8 @@ export class DialogService {
 			position: { top: "10px" },
 			data: {
 				message: msg,
-				ConfirmYes: 'Confirm',
-				ConfirmNo: 'Cancel'
+				ConfirmNo: 'Ok'
 			}
 		});
 	}
-	 popup(msg) {
-	 	return this.dialog.open(MatConfirmDialogComponent, {
-	 		width: '390px',
-	 		panelClass: 'confirm-dialog-container',
-	 		disableClose: true,
-	 		position: { top: "10px" },
-	 		data: {
-	 			message: msg,
-	 			ConfirmNo: 'Ok'
-	 		}
-	 	});
-	 }
 }

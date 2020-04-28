@@ -3,33 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from './MaterialModels/material.module';
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CroppedComponent } from './cropped/cropped.component';
+import { AngularUploaderModule } from './angular-uploader/angular-uploader.module';
 import { ToastrModule } from 'ngx-toastr';
 import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ImageUploaderComponent,
-    CroppedComponent
+    AppComponent    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    FlexLayoutModule,
-    MaterialModule,
-    BrowserAnimationsModule,
+    AngularUploaderModule,
     ToastrModule.forRoot({
       progressBar: true,
-      progressAnimation:'decreasing',
-      positionClass:'toast-bottom-center'
+      progressAnimation: 'decreasing',
+      positionClass: 'toast-bottom-center'
     }),
     ImageCropperModule
   ],

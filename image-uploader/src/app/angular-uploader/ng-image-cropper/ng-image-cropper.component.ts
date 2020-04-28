@@ -1,22 +1,23 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { AlertService } from '../_services/alert.service';
+import { AlertService } from 'src/app/_services/alert.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogService } from '../_services/dialog.service';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { DialogService } from 'src/app/_services/dialog.service';
 
 @Component({
-  selector: 'app-cropped',
-  templateUrl: './cropped.component.html',
-  styleUrls: ['./cropped.component.scss']
+  selector: 'app-ng-image-cropper',
+  templateUrl: './ng-image-cropper.component.html',
+  styleUrls: ['./ng-image-cropper.component.scss'],
+  providers:[DialogService]
 })
-export class CroppedComponent implements OnInit {
+export class NgImageCropperComponent implements OnInit {
   imageChangedEvent: any = '';
   croppedImage: any = '';
   loading = true
   constructor(
     private alertService: AlertService,
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<CroppedComponent>,
+    public dialogRef: MatDialogRef<NgImageCropperComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
 
@@ -51,5 +52,6 @@ export class CroppedComponent implements OnInit {
   closeDialog() {
     this.dialogRef.close({ event: 'close', data: null });
   }
+
 
 }

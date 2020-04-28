@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CroppedComponent } from './cropped.component';
+import { MatConfirmDialogComponent } from './mat-confirm-dialog.component';
 
-describe('CroppedComponent', () => {
-  let component: CroppedComponent;
-  let fixture: ComponentFixture<CroppedComponent>;
+describe('MatConfirmDialogComponent', () => {
+  let component: MatConfirmDialogComponent;
+  let fixture: ComponentFixture<MatConfirmDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CroppedComponent ]
+      declarations: [ MatConfirmDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CroppedComponent);
+    fixture = TestBed.createComponent(MatConfirmDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
