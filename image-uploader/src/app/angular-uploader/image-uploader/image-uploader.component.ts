@@ -92,8 +92,7 @@ export class ImageUploaderComponent implements OnInit {
       .afterClosed()
       .subscribe(res => {
         if (res) {
-          if (index !== -1) {
-            console.log(this.uploadInput);
+          if (index !== -1) {          
             this.uploadInput.nativeElement.value = ''
             this.urlsDetails.splice(index, 1);
           }
