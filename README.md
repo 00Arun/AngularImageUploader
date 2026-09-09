@@ -70,10 +70,16 @@ npm run pack:lib               # dry-run: shows exactly what would be published
 
 ## Release
 
-1. Update the version in `projects/angular-material-image-uploader/package.json` and add a CHANGELOG entry.
-2. Commit and tag (`git tag -a vX.Y.Z`), push the branch and the tag.
-3. `npm run publish:lib` (needs `npm login` and a 2FA code).
-4. Create a GitHub release for the tag and paste the CHANGELOG entry.
+Publishing is automated by [.github/workflows/publish.yml](.github/workflows/publish.yml):
+
+1. Bump `version` in `image-uploader/projects/angular-material-image-uploader/package.json`.
+2. Add a `## [X.Y.Z] - date` section to `image-uploader/projects/angular-material-image-uploader/CHANGELOG.md`.
+3. Push to `master`.
+
+If that version is not on npm yet, the workflow runs audit, build, and tests, publishes to npm with
+provenance via npm Trusted Publishing (no token or 2FA code needed), pushes the `vX.Y.Z` tag, and
+creates a GitHub release using the CHANGELOG section as notes. Pushes that don't change the version
+do nothing. Manual fallback: `npm run publish:lib` (needs `npm login` and a 2FA code).
 
 ## Security
 

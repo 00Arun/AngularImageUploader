@@ -5,6 +5,12 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    ignore:
+      # Angular pins these ranges; let Angular upgrades move them.
+      - dependency-name: typescript
+        update-types: ["version-update:semver-major"]
+      - dependency-name: vitest
+        update-types: ["version-update:semver-major"]
     groups:
       angular:
         patterns: ["@angular/*", "ng-packagr", "zone.js"]

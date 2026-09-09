@@ -1,0 +1,102 @@
+name: Publish
+
+# Publishes the library to npm whenever a push to master carries a version
+# (projects/angular-material-image-uploader/package.json) that is not on the
+# registry yet. Uses npm Trusted Publishing (OIDC): no npm token, no 2FA code.
+# Also pushes a vX.Y.Z tag and creates a GitHub release from the CHANGELOG entry.
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "image-uploader/projects/angular-material-image-uploader/**"
+      - ".github/workflows/publish.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write   # push the tag, create the release
+  id-token: write   # npm trusted publishing
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: image-uploader
+    env:
+      PKG: angular-material-image-uploader
+      PKG_DIR: projects/angular-material-image-uploader
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: image-uploader/.nvmrc
+          registry-url: https://registry.npmjs.org
+          cache: npm
+          cache-dependency-path: image-uploader/package-lock.json
+
+      - name: Update npm (trusted publishing needs npm 11.5+)
+        run: npm install -g npm@latest && npm --version
+
+      - name: Decide whether this version needs publishing
+        id: ver
+        run: |
+          V=$(node -p "require('./$PKG_DIR/package.json').version")
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+          if npm view "$PKG@$V" version >/dev/null 2>&1; then
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::$PKG@$V is already on npm, nothing to publish."
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::$PKG@$V is new, will publish."
+          fi
+
+      - name: Install
+        if: steps.ver.outputs.publish == 'true'
+        run: npm ci --legacy-peer-deps
+
+      - name: Security audit
+        if: steps.ver.outputs.publish == 'true'
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Build library
+        if: steps.ver.outputs.publish == 'true'
+        run: npx ng build $PKG
+
+      - name: Unit tests
+        if: steps.ver.outputs.publish == 'true'
+        run: npx ng test image-uploader
+
+      - name: Publish to npm
+        if: steps.ver.outputs.publish == 'true'
+        working-directory: image-uploader/dist/angular-material-image-uploader
+        run: npm publish --access public --provenance
+
+      - name: Tag and GitHub release
+        if: steps.ver.outputs.publish == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          V: ${{ steps.ver.outputs.version }}
+        run: |
+          # Release notes = the "## [V]" section of the CHANGELOG
+          awk -v v="$V" '
+            $0 ~ "^## \\[" v "\\]" {p=1; next}
+            p && /^## \[/ {exit}
+            p {print}
+          ' "$PKG_DIR/CHANGELOG.md" > /tmp/notes.md
+          [ -s /tmp/notes.md ] || echo "Release $V" > /tmp/notes.md
+          if ! git rev-parse "v$V" >/dev/null 2>&1; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag -a "v$V" -m "$PKG $V"
+            git push origin "v$V"
+          fi
+          gh release view "v$V" >/dev/null 2>&1 || \
+            gh release create "v$V" --title "v$V" --notes-file /tmp/notes.md
