@@ -190,10 +190,6 @@ Use `(uploadComplete)` or `(imageDetails)` to send files yourself if you prefer.
 
 The selector `app-angular-material-uploader` is unchanged.
 
-## Changelog
-
-See [CHANGELOG.md](https://github.com/00Arun/AngularImageUploader/blob/master/image-uploader/projects/angular-material-image-uploader/CHANGELOG.md).
-
 ## License
 
 MIT

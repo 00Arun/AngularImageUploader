@@ -3,6 +3,11 @@
 All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [2.0.3] - 2026-09-09
+
+### Changed
+- npm README no longer links the changelog; release notes live on GitHub Releases. CHANGELOG.md is no longer shipped in the package.
+
 ## [2.0.2] - 2026-09-09
 
 ### Security
@@ -58,6 +63,7 @@ Complete rewrite for Angular 22. This is a breaking release; see "Upgrading from
 
 Last release of the Angular 9 line.
 
+[2.0.3]: https://github.com/00Arun/AngularImageUploader/releases/tag/v2.0.3
 [2.0.2]: https://github.com/00Arun/AngularImageUploader/releases/tag/v2.0.2
 [2.0.1]: https://github.com/00Arun/AngularImageUploader/releases/tag/v2.0.1
 [2.0.0]: https://github.com/00Arun/AngularImageUploader/releases/tag/v2.0.0
