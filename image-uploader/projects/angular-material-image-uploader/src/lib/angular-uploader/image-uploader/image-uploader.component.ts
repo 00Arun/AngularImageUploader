@@ -300,7 +300,7 @@ export class ImageUploaderComponent implements OnDestroy {
   }
 
   remove(item: UploadItem): void {
-    this.dialogService.openConfirmDialog(`Remove <b>${item.name}</b> from the list?`)
+    this.dialogService.openConfirmDialog('Remove this image from the list?', item.name)
       .afterClosed().subscribe(yes => {
         if (!yes) { return; }
         this.cancelUpload(item);

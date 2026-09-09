@@ -6,12 +6,13 @@ import { MatConfirmDialogComponent, ConfirmDialogData } from '../angular-uploade
 export class DialogService {
   private dialog = inject(MatDialog);
 
-  openConfirmDialog(message: string): MatDialogRef<MatConfirmDialogComponent, boolean> {
+  /** Yes/No question. `name` (for example a file name) is shown as plain text under the message. */
+  openConfirmDialog(message: string, name?: string): MatDialogRef<MatConfirmDialogComponent, boolean> {
     return this.dialog.open<MatConfirmDialogComponent, ConfirmDialogData, boolean>(MatConfirmDialogComponent, {
       width: '390px',
       disableClose: true,
       autoFocus: false,
-      data: { message, confirmYes: 'Yes', confirmNo: 'No' }
+      data: { message, name, confirmYes: 'Yes', confirmNo: 'No' }
     });
   }
 

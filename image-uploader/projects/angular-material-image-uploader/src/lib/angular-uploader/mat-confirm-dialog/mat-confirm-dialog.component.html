@@ -1,6 +1,9 @@
 <h2 mat-dialog-title>Attention</h2>
 <mat-dialog-content>
-  <p [innerHTML]="data.message"></p>
+  <p>{{ data.message }}</p>
+  @if (data.name) {
+    <p class="target"><mat-icon>image</mat-icon><span>{{ data.name }}</span></p>
+  }
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   @if (data.confirmYes) {

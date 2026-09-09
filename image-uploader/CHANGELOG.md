@@ -3,6 +3,12 @@
 All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [2.0.2] - 2026-09-09
+
+### Security
+- Confirm dialog renders file names as plain text instead of through `innerHTML`. Angular's sanitizer already neutralised markup in names, so this is hardening, not a fix for an exploitable issue.
+- `npm audit` clean (0 vulnerabilities); CI workflow now runs the audit on every push.
+
 ## [2.0.1] - 2026-09-09
 
 ### Changed
@@ -52,6 +58,7 @@ Complete rewrite for Angular 22. This is a breaking release; see "Upgrading from
 
 Last release of the Angular 9 line.
 
+[2.0.2]: https://github.com/00Arun/AngularImageUploader/releases/tag/v2.0.2
 [2.0.1]: https://github.com/00Arun/AngularImageUploader/releases/tag/v2.0.1
 [2.0.0]: https://github.com/00Arun/AngularImageUploader/releases/tag/v2.0.0
 [1.0.9]: https://www.npmjs.com/package/angular-material-image-uploader/v/1.0.9

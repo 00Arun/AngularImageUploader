@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  build-test-audit:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: image-uploader
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: image-uploader/.nvmrc
+          cache: npm
+          cache-dependency-path: image-uploader/package-lock.json
+
+      - name: Install
+        run: npm ci --legacy-peer-deps
+
+      - name: Security audit (production dependencies)
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Build library
+        run: npx ng build angular-material-image-uploader
+
+      - name: Build demo app
+        run: npx ng build image-uploader
+
+      - name: Unit tests
+        run: npx ng test image-uploader
+
+      - name: Pack (dry run) to check publish contents
+        run: cd dist/angular-material-image-uploader && npm pack --dry-run
