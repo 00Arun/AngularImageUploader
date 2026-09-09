@@ -1,0 +1,111 @@
+// Dialog surface (panelClass "preview-dialog-panel"): the template owns its own spacing.
+::ng-deep .preview-dialog-panel .mat-mdc-dialog-surface {
+  padding: 20px 24px;
+  overflow: hidden;
+}
+
+.preview-dialog {
+  display: flex;
+  flex-direction: column;
+  outline: none;
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #ededed;
+  padding-bottom: 8px;
+
+  h2 {
+    margin: 0;
+    font-size: 16px;
+    max-width: 420px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.preview-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 12px;
+  color: #757575;
+  margin-top: 2px;
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    color: #673ab7;
+    background: #ede7f6;
+    border-radius: 10px;
+    padding: 0 8px;
+
+    mat-icon {
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+    }
+
+    &.done {
+      color: #2e7d32;
+      background: #e8f5e9;
+    }
+  }
+}
+
+.counter {
+  font-size: 12px;
+  color: #757575;
+}
+
+.preview-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 0 !important;
+  margin: 0 !important;
+  max-height: 70vh !important;
+
+  img {
+    max-width: 100%;
+    max-height: 62vh;
+    object-fit: contain;
+    border-radius: 4px;
+    background:
+      linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%),
+      linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 8px 8px;
+  }
+
+  .nav {
+    flex: 0 0 auto;
+  }
+}
+
+.preview-actions {
+  display: flex;
+  gap: 8px;
+  border-top: 1px solid #ededed;
+  padding: 12px 0 0 !important;
+  margin: 0 !important;
+  float: none !important;
+
+  .spacer {
+    flex: 1;
+  }
+
+  mat-icon {
+    margin-right: 4px;
+  }
+}

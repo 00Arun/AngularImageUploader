@@ -1,0 +1,153 @@
+<div class="crop-dialog">
+  <div class="crop-header">
+    <div class="crop-title">
+      <mat-icon>crop</mat-icon>
+      <div>
+        <h2>Crop image</h2>
+        @if (currentFile()) {
+          <div class="crop-subtitle">
+            <span class="file-name" [matTooltip]="currentName()">{{ currentName() }}</span>
+            @if (originalSize(); as size) {
+              <span class="dot">·</span>
+              <span>{{ size.width }} × {{ size.height }} px</span>
+            }
+            <span class="dot">·</span>
+            <span>{{ formatBytes(currentSize()) }}</span>
+          </div>
+        }
+      </div>
+    </div>
+    @if (isBatch()) {
+      <div class="crop-progress">
+        <span class="badge">{{ index() + 1 }} of {{ total() }}</span>
+        <mat-progress-bar mode="determinate" [value]="(index() / total()) * 100"></mat-progress-bar>
+      </div>
+    }
+    <button mat-icon-button (click)="cancel()" matTooltip="Cancel all" aria-label="Cancel">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="crop-body">
+    <div class="crop-stage">
+      @if (loading()) {
+        <div class="stage-loading">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+      }
+      <image-cropper
+        [imageFile]="currentFile()"
+        [maintainAspectRatio]="maintainAspectRatio()"
+        [aspectRatio]="aspectRatio()"
+        [roundCropper]="roundCropper"
+        [canvasRotation]="canvasRotation()"
+        [transform]="transform()"
+        [format]="format"
+        output="base64"
+        [imageQuality]="quality"
+        [resizeToWidth]="resizeToWidth"
+        [onlyScaleDown]="true"
+        backgroundColor="#ffffff"
+        (imageCropped)="imageCropped($event)"
+        (cropperReady)="cropperReady()"
+        (loadImageFailed)="loadImageFailed()">
+      </image-cropper>
+      <p class="stage-hint">Drag the corners or edges to resize, drag inside to move. Arrow keys nudge the crop area.</p>
+    </div>
+
+    <aside class="crop-tools">
+      <section>
+        <h4>Aspect ratio</h4>
+        <mat-button-toggle-group class="ratio-group" [value]="aspectKey()" (change)="setAspect($event.value)" aria-label="Aspect ratio">
+          @for (r of aspectRatios; track r.key) {
+            <mat-button-toggle [value]="r.key">{{ r.label }}</mat-button-toggle>
+          }
+        </mat-button-toggle-group>
+        <mat-slide-toggle [(ngModel)]="roundCropper" color="primary">Round crop</mat-slide-toggle>
+      </section>
+
+      <section>
+        <h4>Adjust</h4>
+        <div class="tool-row">
+          <button mat-stroked-button (click)="rotate(-1)" matTooltip="Rotate left"><mat-icon>rotate_left</mat-icon></button>
+          <button mat-stroked-button (click)="rotate(1)" matTooltip="Rotate right"><mat-icon>rotate_right</mat-icon></button>
+          <button mat-stroked-button (click)="flip('h')" matTooltip="Flip horizontal" [class.active]="transform().flipH"><mat-icon>flip</mat-icon></button>
+          <button mat-stroked-button (click)="flip('v')" matTooltip="Flip vertical" [class.active]="transform().flipV"><mat-icon class="rot90">flip</mat-icon></button>
+        </div>
+        <div class="zoom-row">
+          <button mat-icon-button (click)="zoomBy(-0.1)" matTooltip="Zoom out"><mat-icon>zoom_out</mat-icon></button>
+          <mat-slider min="0.5" max="3" step="0.1" color="primary">
+            <input matSliderThumb [value]="zoom()" (valueChange)="setZoom($event)" aria-label="Zoom" />
+          </mat-slider>
+          <button mat-icon-button (click)="zoomBy(0.1)" matTooltip="Zoom in"><mat-icon>zoom_in</mat-icon></button>
+          <span class="zoom-value">{{ zoomPercent() }}%</span>
+        </div>
+        <div class="tool-row">
+          <button mat-button (click)="resetCropArea()"><mat-icon>crop_free</mat-icon> Reset crop area</button>
+          <button mat-button (click)="resetAdjustments()"><mat-icon>restart_alt</mat-icon> Reset all</button>
+        </div>
+      </section>
+
+      <section>
+        <h4>Output</h4>
+        <mat-form-field appearance="outline" class="full" subscriptSizing="dynamic">
+          <mat-label>Format</mat-label>
+          <mat-select [(ngModel)]="format">
+            @for (f of outputFormats; track f.value) {
+              <mat-option [value]="f.value">{{ f.label }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        @if (isLossy) {
+          <div class="quality-row">
+            <span>Quality</span>
+            <mat-slider min="10" max="100" step="5" discrete color="primary">
+              <input matSliderThumb [(ngModel)]="quality" aria-label="Quality" />
+            </mat-slider>
+            <span class="zoom-value">{{ quality }}</span>
+          </div>
+        }
+        @if (croppedImage(); as preview) {
+          <div class="preview">
+            <img [src]="preview" [class.round]="roundCropper" alt="Cropped preview" />
+            <div class="preview-meta">
+              <span>{{ croppedWidth() }} × {{ croppedHeight() }} px</span>
+              <span>≈ {{ formatBytes(croppedBytes()) }}</span>
+            </div>
+          </div>
+        }
+      </section>
+    </aside>
+  </mat-dialog-content>
+
+  @if (isBatch()) {
+    <div class="thumb-strip">
+      @for (t of thumbs(); track $index; let i = $index) {
+        <div class="thumb" [class.current]="i === index()" [class.done]="i < index()" [matTooltip]="queue()[i].name">
+          @if (t) { <img [src]="t" alt="" /> }
+          @if (i < index()) { <mat-icon class="check">check_circle</mat-icon> }
+          <span class="num">{{ i + 1 }}</span>
+        </div>
+      }
+    </div>
+  }
+
+  <mat-dialog-actions class="crop-actions">
+    <button mat-button (click)="cancel()">Cancel</button>
+    <span class="spacer"></span>
+    @if (isBatch()) {
+      <button mat-button color="warn" (click)="removeFromBatch()" matTooltip="Do not add this image">
+        <mat-icon>delete_outline</mat-icon> Remove
+      </button>
+    }
+    @if (canSkip) {
+      <button mat-stroked-button (click)="useOriginal()" [disabled]="loading()" matTooltip="Add without cropping">
+        Use original
+      </button>
+    }
+    <button mat-flat-button color="primary" (click)="cropAndNext()" [disabled]="loading() || !croppedImage()">
+      <mat-icon>{{ isLast() ? 'check' : 'arrow_forward' }}</mat-icon>
+      {{ isLast() ? (isBatch() ? 'Crop & finish' : 'Crop & save') : 'Crop & next' }}
+    </button>
+  </mat-dialog-actions>
+</div>

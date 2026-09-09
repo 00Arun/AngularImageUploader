@@ -1,0 +1,33 @@
+<div class="preview-dialog" (keydown)="onKey($event)" tabindex="0">
+  <div class="preview-header">
+    <div class="preview-title">
+      <h2 [matTooltip]="item.name">{{ item.name }}</h2>
+      <div class="meta">
+        <span>{{ item.width }} × {{ item.height }} px</span>
+        <span>{{ formatBytes(item.size) }}</span>
+        <span>{{ item.type }}</span>
+        @if (item.cropped) { <span class="chip"><mat-icon>crop</mat-icon> cropped</span> }
+        @if (item.status === 'done') { <span class="chip done"><mat-icon>cloud_done</mat-icon> uploaded</span> }
+      </div>
+    </div>
+    @if (data.items.length > 1) { <span class="counter">{{ index + 1 }} / {{ data.items.length }}</span> }
+    <button mat-icon-button mat-dialog-close aria-label="Close"><mat-icon>close</mat-icon></button>
+  </div>
+
+  <mat-dialog-content class="preview-body">
+    <button mat-icon-button class="nav prev" (click)="prev()" [disabled]="!hasPrev" aria-label="Previous">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <img [src]="item.previewUrl" [alt]="item.name" />
+    <button mat-icon-button class="nav next" (click)="next()" [disabled]="!hasNext" aria-label="Next">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="preview-actions">
+    <button mat-button (click)="edit()"><mat-icon>crop</mat-icon> Re-crop</button>
+    <button mat-button (click)="download()"><mat-icon>download</mat-icon> Download</button>
+    <span class="spacer"></span>
+    <button mat-flat-button color="primary" mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+</div>

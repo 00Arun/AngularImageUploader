@@ -1,0 +1,400 @@
+$primary: #673ab7;
+$green: #34b34f;
+$border: #ededed;
+
+.page-content {
+  display: flex;
+  justify-content: center;
+  padding: 48px 16px;
+}
+
+.card {
+  width: 100%;
+  max-width: 760px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+
+  .card-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .card-hint {
+    margin: 2px 0 0;
+    font-size: 12px;
+    color: #959595;
+  }
+}
+
+.settings {
+  background: #fafafa;
+  border: 1px solid $border;
+  border-radius: 4px;
+  padding: 12px 14px 0;
+  margin-bottom: 14px;
+
+  .settings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 8px 16px;
+    margin-bottom: 12px;
+
+    &.fields {
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+  }
+
+  mat-form-field {
+    width: 100%;
+    font-size: 13px;
+  }
+}
+
+// ---- dropzone ----
+
+.fileuploader-theme-dragdrop .fileuploader-input {
+  border: 2px dashed #c3e2c7;
+  border-radius: 0.25rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2.25rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s;
+
+  &:hover {
+    background: #fafcfa;
+  }
+
+  &.drag-over {
+    border-color: $green;
+    background: #eef8f0;
+
+    .fileuploader-main-icon {
+      color: $green;
+      transform: translateY(4px);
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+}
+
+.fileuploader-input-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fileuploader-main-icon {
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+  color: #c3c3c3;
+  transition: transform 0.15s, color 0.15s;
+}
+
+.fileuploader-input-caption {
+  margin: 8px 0 0;
+  font-size: 1.15rem;
+  font-weight: normal;
+  color: #8a8a8a;
+}
+
+.fileuploader-theme-dragdrop p {
+  margin: 6px 0;
+  color: #b9b9b9;
+  font-size: 13px;
+}
+
+.fileuploader-input-button {
+  user-select: none;
+  background: $green;
+  color: #fff;
+  border-radius: 0.25rem;
+  padding: 0 1.25rem;
+  line-height: 36px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  white-space: nowrap;
+}
+
+.paste-hint {
+  font-size: 12px !important;
+
+  kbd {
+    font-family: inherit;
+    font-size: 11px;
+    border: 1px solid #ddd;
+    border-bottom-width: 2px;
+    border-radius: 3px;
+    padding: 0 4px;
+    background: #fff;
+    color: #777;
+  }
+}
+
+.limit-hint {
+  color: #e57373 !important;
+  font-size: 12px !important;
+}
+
+// ---- list toolbar ----
+
+.list-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 16px 0 6px;
+
+  .summary {
+    font-size: 13px;
+    color: #616161;
+
+    .ok { color: #2e7d32; }
+    .busy { color: $primary; }
+  }
+
+  .toolbar-actions {
+    display: flex;
+    gap: 8px;
+
+    mat-icon {
+      margin-right: 4px;
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+// ---- items ----
+
+.fileuploader-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.fileuploader-item {
+  border-bottom: 1px solid $border;
+  background: #fff;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &.status-done {
+    background: #f6fbf7;
+  }
+
+  &.status-error {
+    background: #fff7f7;
+  }
+
+  &.cdk-drag-preview {
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14);
+    border-radius: 4px;
+  }
+
+  &.cdk-drag-animating {
+    transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.fileuploader-items.cdk-drop-list-dragging .fileuploader-item:not(.cdk-drag-placeholder) {
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.drag-placeholder {
+  height: 84px;
+  background: #f3eefb;
+  border: 1px dashed $primary;
+  border-radius: 4px;
+  margin: 4px 0;
+}
+
+.columns {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.drag-handle {
+  color: #bdbdbd;
+  cursor: grab;
+  display: flex;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.columns-thumbnail {
+  position: relative;
+  flex: 0 0 64px;
+  height: 64px;
+  border-radius: 4px;
+  border: 1px solid $border;
+  overflow: hidden;
+  cursor: zoom-in;
+  background-color: #e6e6e6;
+  background-image:
+    linear-gradient(45deg, #d5d5d5 25%, transparent 25%, transparent 75%, #d5d5d5 75%),
+    linear-gradient(45deg, #d5d5d5 25%, transparent 25%, transparent 75%, #d5d5d5 75%);
+  background-size: 12px 12px;
+  background-position: 0 0, 6px 6px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    padding: 2px;
+    box-sizing: border-box;
+  }
+
+  .zoom {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    color: #fff;
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 50%;
+    transition: opacity 0.15s;
+  }
+
+  &:hover .zoom {
+    opacity: 1;
+  }
+}
+
+.column-title {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+
+  h5 {
+    margin: 0 0 2px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #484848;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #8a8a8a;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 11px;
+    color: $primary;
+    background: #ede7f6;
+    border-radius: 10px;
+    padding: 0 8px;
+    line-height: 18px;
+
+    mat-icon {
+      font-size: 13px;
+      width: 13px;
+      height: 13px;
+    }
+
+    &.plain {
+      color: #757575;
+      background: #f0f0f0;
+    }
+  }
+
+  mat-progress-bar {
+    margin-top: 6px;
+    border-radius: 2px;
+  }
+
+  .status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+    font-size: 12px;
+    color: $primary;
+
+    mat-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+    }
+
+    &.ok { color: #2e7d32; }
+    &.err { color: #d32f2f; }
+  }
+}
+
+.columns-actions {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.fileuploader-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0 0;
+  color: #959595;
+  font-size: 13px;
+
+  .mat-icon {
+    margin-left: 0.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .page-content {
+    padding: 16px 8px;
+  }
+
+  .columns-thumbnail {
+    flex-basis: 52px;
+    height: 52px;
+  }
+}
+
+// The item menu renders in the CDK overlay, outside this view.
+::ng-deep .mat-mdc-menu-item.danger {
+  color: #d32f2f;
+
+  .mat-icon {
+    color: inherit;
+  }
+}

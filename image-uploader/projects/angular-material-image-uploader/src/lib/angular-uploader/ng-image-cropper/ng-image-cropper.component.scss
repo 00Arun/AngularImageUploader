@@ -1,0 +1,345 @@
+:host {
+  display: block;
+}
+
+// Dialog surface (panelClass "cropper-dialog"): the template owns its own spacing.
+::ng-deep .cropper-dialog .mat-mdc-dialog-surface {
+  padding: 20px 24px;
+  overflow: hidden;
+}
+
+.crop-dialog {
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+}
+
+.crop-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ededed;
+
+  h2 {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.2;
+  }
+}
+
+.crop-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+
+  > mat-icon {
+    color: #673ab7;
+  }
+}
+
+.crop-subtitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #757575;
+  min-width: 0;
+
+  .file-name {
+    max-width: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.crop-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  width: 140px;
+
+  .badge {
+    font-size: 12px;
+    font-weight: 500;
+    color: #673ab7;
+    background: #ede7f6;
+    border-radius: 12px;
+    padding: 2px 10px;
+  }
+
+  mat-progress-bar {
+    width: 100%;
+    border-radius: 2px;
+  }
+}
+
+.crop-body {
+  display: flex;
+  gap: 20px;
+  padding: 16px 0 !important;
+  margin: 0 !important;
+  max-height: none !important;
+  overflow: hidden !important;
+}
+
+.crop-stage {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  image-cropper {
+    width: 100%;
+    max-height: 440px;
+    min-height: 240px;
+    background: #fafafa;
+    border: 1px solid #ededed;
+    border-radius: 4px;
+    --cropper-outline-color: rgba(0, 0, 0, 0.45);
+  }
+
+  .stage-hint {
+    margin: 10px 0 0;
+    font-size: 12px;
+    color: #9e9e9e;
+    text-align: center;
+  }
+}
+
+.stage-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 2;
+}
+
+.crop-tools {
+  flex: 0 0 280px;
+  overflow-y: auto;
+  padding-right: 4px;
+
+  section {
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid #f0f0f0;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  h4 {
+    margin: 0 0 8px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: #757575;
+  }
+}
+
+.ratio-group {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+
+  ::ng-deep .mat-button-toggle-label-content {
+    line-height: 32px;
+    padding: 0 8px;
+    font-size: 13px;
+  }
+
+  ::ng-deep .mat-button-toggle-checked .mat-pseudo-checkbox {
+    display: none;
+  }
+}
+
+.tool-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+
+  button.mat-stroked-button {
+    min-width: 0;
+    padding: 0 10px;
+
+    &.active {
+      background: #ede7f6;
+      border-color: #673ab7;
+      color: #673ab7;
+    }
+  }
+
+  button.mat-button {
+    padding: 0 6px;
+    font-size: 12px;
+
+    mat-icon {
+      font-size: 18px;
+      height: 18px;
+      width: 18px;
+      margin-right: 2px;
+    }
+  }
+}
+
+.rot90 {
+  transform: rotate(90deg);
+}
+
+.zoom-row,
+.quality-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  mat-slider {
+    flex: 1;
+  }
+
+  .zoom-value {
+    width: 40px;
+    text-align: right;
+    font-size: 12px;
+    color: #616161;
+  }
+}
+
+.quality-row > span:first-child {
+  font-size: 13px;
+  color: #616161;
+}
+
+.full {
+  width: 100%;
+}
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+
+  img {
+    max-width: 100%;
+    max-height: 120px;
+    border: 1px solid #ededed;
+    border-radius: 4px;
+    background:
+      linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%),
+      linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%);
+    background-size: 12px 12px;
+    background-position: 0 0, 6px 6px;
+
+    &.round {
+      border-radius: 50%;
+    }
+  }
+
+  .preview-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: #757575;
+  }
+}
+
+.thumb-strip {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 8px 0;
+  border-top: 1px solid #ededed;
+
+  .thumb {
+    position: relative;
+    flex: 0 0 auto;
+    width: 56px;
+    height: 56px;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    background: #e6e6e6;
+    overflow: hidden;
+    opacity: 0.6;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    &.current {
+      border-color: #673ab7;
+      opacity: 1;
+    }
+
+    &.done {
+      opacity: 0.9;
+    }
+
+    .check {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      color: #fff;
+      background: rgba(52, 179, 79, 0.75);
+      border-radius: 50%;
+    }
+
+    .num {
+      position: absolute;
+      left: 3px;
+      bottom: 2px;
+      font-size: 10px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.55);
+      border-radius: 8px;
+      padding: 0 5px;
+    }
+  }
+}
+
+.crop-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0 0 !important;
+  margin: 0 !important;
+  border-top: 1px solid #ededed;
+  float: none !important;
+
+  .spacer {
+    flex: 1;
+  }
+
+  button mat-icon {
+    margin-right: 4px;
+  }
+}
+
+@media (max-width: 860px) {
+  .crop-body {
+    flex-direction: column;
+    overflow-y: auto !important;
+  }
+
+  .crop-tools {
+    flex: 0 0 auto;
+  }
+
+  .crop-progress {
+    display: none;
+  }
+}

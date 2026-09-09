@@ -1,0 +1,179 @@
+<div class="page-content">
+  <div class="card">
+    <div class="card-body">
+      <div class="card-head">
+        <div>
+          <h5 class="card-title">Photos & Videos</h5>
+          <p class="card-hint">
+            {{ cfg.multiple ? 'Up to ' + cfg.maxFiles + ' images' : 'One image' }} ·
+            max {{ cfg.maxFileSizeMB }} MB each · {{ allowedTypesLabel }}
+          </p>
+        </div>
+        @if (showSettingsButton()) {
+          <button mat-icon-button (click)="showSettings.set(!showSettings())" [color]="showSettings() ? 'primary' : undefined"
+                  matTooltip="Uploader settings" aria-label="Settings">
+            <mat-icon>settings</mat-icon>
+          </button>
+        }
+      </div>
+
+      @if (showSettingsButton() && showSettings()) {
+        <div class="settings">
+          <div class="settings-grid">
+            <mat-slide-toggle color="primary" [(ngModel)]="cfg.multiple" (change)="onMultipleChanged()">Multiple upload</mat-slide-toggle>
+            <mat-slide-toggle color="primary" [(ngModel)]="cfg.cropBeforeAdd">Crop before adding</mat-slide-toggle>
+            <mat-slide-toggle color="primary" [(ngModel)]="cfg.allowSkipCrop" [disabled]="!cfg.cropBeforeAdd">Allow "Use original"</mat-slide-toggle>
+            <mat-slide-toggle color="primary" [(ngModel)]="cfg.autoUpload">Auto upload</mat-slide-toggle>
+            <mat-slide-toggle color="primary" [(ngModel)]="cfg.allowReorder" [disabled]="!cfg.multiple">Drag to reorder</mat-slide-toggle>
+            <mat-slide-toggle color="primary" [(ngModel)]="cfg.allowPaste">Paste from clipboard</mat-slide-toggle>
+          </div>
+          <div class="settings-grid fields">
+            <mat-form-field appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Max files</mat-label>
+              <input matInput type="number" min="1" max="100" [(ngModel)]="cfg.maxFiles" [disabled]="!cfg.multiple" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Max size (MB)</mat-label>
+              <input matInput type="number" min="1" max="50" [(ngModel)]="cfg.maxFileSizeMB" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Default aspect ratio</mat-label>
+              <mat-select [(ngModel)]="cfg.defaultAspectRatio">
+                @for (r of aspectRatios; track r.key) {
+                  <mat-option [value]="r.key">{{ r.label }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Output format</mat-label>
+              <mat-select [(ngModel)]="cfg.outputFormat">
+                @for (f of outputFormats; track f.value) {
+                  <mat-option [value]="f.value">{{ f.label }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Resize width (px, 0 = keep)</mat-label>
+              <input matInput type="number" min="0" step="10" [(ngModel)]="cfg.resizeToWidth" />
+            </mat-form-field>
+          </div>
+        </div>
+      }
+
+      <div class="fileuploader fileuploader-theme-dragdrop">
+        <input id="input-file" type="file" #uploader [accept]="acceptAttr" [multiple]="cfg.multiple"
+               (change)="onFilesSelected($event)" class="cdk-visually-hidden" />
+        <label for="input-file" class="fileuploader-input" [class.drag-over]="isDragOver()" [class.disabled]="!canAddMore || busy()"
+               (dragover)="onDragOver($event)" (dragenter)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+          <div class="fileuploader-input-inner">
+            <mat-icon class="fileuploader-main-icon">{{ isDragOver() ? 'file_download' : 'cloud_upload' }}</mat-icon>
+            <h5 class="fileuploader-input-caption">
+              {{ isDragOver() ? 'Release to add' : (cfg.multiple ? 'Drop files here to upload' : 'Drop a file here to upload') }}
+            </h5>
+            <p>or</p>
+            <div class="fileuploader-input-button" matRipple>
+              <span>{{ cfg.multiple ? 'Browse files' : 'Browse file' }}</span>
+            </div>
+            @if (cfg.allowPaste) {
+              <p class="paste-hint">You can also paste an image with <kbd>Ctrl</kbd>+<kbd>V</kbd></p>
+            }
+            @if (!canAddMore) {
+              <p class="limit-hint">Limit of {{ cfg.maxFiles }} images reached. Remove one to add more.</p>
+            }
+          </div>
+        </label>
+
+        @if (items().length) {
+          <div class="list-toolbar">
+            <div class="summary">
+              <strong>{{ items().length }}</strong> {{ items().length === 1 ? 'image' : 'images' }} · {{ formatBytes(totalSize()) }}
+              @if (doneCount()) { <span class="ok">· {{ doneCount() }} uploaded</span> }
+              @if (uploadingCount()) { <span class="busy">· {{ uploadingCount() }} uploading</span> }
+            </div>
+            <div class="toolbar-actions">
+              <button mat-stroked-button color="warn" (click)="clearAll()" [disabled]="uploadingCount() > 0">
+                <mat-icon>delete_sweep</mat-icon> Clear all
+              </button>
+              <button mat-flat-button color="primary" (click)="uploadAll()" [disabled]="!readyItems().length">
+                <mat-icon>cloud_upload</mat-icon> Upload {{ readyItems().length ? '(' + readyItems().length + ')' : '' }}
+              </button>
+            </div>
+          </div>
+        }
+
+        <div class="fileuploader-items" cdkDropList (cdkDropListDropped)="reorder($event)" [cdkDropListDisabled]="!cfg.allowReorder || !cfg.multiple">
+          @for (item of items(); track item.id) {
+            <div class="fileuploader-item" cdkDrag [cdkDragDisabled]="!cfg.allowReorder || !cfg.multiple"
+                 [class.status-done]="item.status === 'done'" [class.status-error]="item.status === 'error'">
+              <div class="drag-placeholder" *cdkDragPlaceholder></div>
+              <div class="columns">
+                @if (cfg.allowReorder && cfg.multiple) {
+                  <div class="drag-handle" cdkDragHandle matTooltip="Drag to reorder">
+                    <mat-icon>drag_indicator</mat-icon>
+                  </div>
+                }
+                <div class="columns-thumbnail" (click)="preview(item)" matTooltip="Preview">
+                  <img [src]="item.previewUrl" [alt]="item.name" />
+                  <mat-icon class="zoom">zoom_in</mat-icon>
+                </div>
+                <div class="column-title">
+                  <h5 [matTooltip]="item.name">{{ item.name }}</h5>
+                  <div class="meta">
+                    <span>{{ item.width }} × {{ item.height }}</span>
+                    <span>{{ formatBytes(item.size) }}</span>
+                    <span>{{ item.type.replace('image/', '') | uppercase }}</span>
+                    @if (item.cropped) {
+                      <span class="chip"><mat-icon>crop</mat-icon>cropped</span>
+                    } @else {
+                      <span class="chip plain">original</span>
+                    }
+                  </div>
+                  @if (item.status === 'uploading') {
+                    <mat-progress-bar mode="determinate" [value]="item.progress" color="primary"></mat-progress-bar>
+                  }
+                  @if (item.status !== 'ready') {
+                    <div class="status" [class.ok]="item.status === 'done'" [class.err]="item.status === 'error'">
+                      @switch (item.status) {
+                        @case ('uploading') { Uploading… {{ item.progress }}% }
+                        @case ('done') { <mat-icon>check_circle</mat-icon> Uploaded }
+                        @case ('error') { <mat-icon>error</mat-icon> {{ item.error }} }
+                      }
+                    </div>
+                  }
+                </div>
+                <div class="columns-actions">
+                  @if (item.status === 'ready' || item.status === 'error') {
+                    <button mat-icon-button (click)="upload(item)" color="primary"
+                            [matTooltip]="item.status === 'error' ? 'Retry upload' : 'Upload'">
+                      <mat-icon>{{ item.status === 'error' ? 'refresh' : 'cloud_upload' }}</mat-icon>
+                    </button>
+                  }
+                  @if (item.status === 'uploading') {
+                    <button mat-icon-button (click)="cancelUpload(item)" matTooltip="Cancel upload">
+                      <mat-icon>pause_circle_outline</mat-icon>
+                    </button>
+                  }
+                  <button mat-icon-button [matMenuTriggerFor]="itemMenu" matTooltip="More" aria-label="More actions">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #itemMenu="matMenu">
+                    <button mat-menu-item (click)="preview(item)"><mat-icon>visibility</mat-icon><span>Preview</span></button>
+                    <button mat-menu-item (click)="editItem(item)" [disabled]="item.status === 'uploading'"><mat-icon>crop</mat-icon><span>{{ item.cropped ? 'Re-crop' : 'Crop' }}</span></button>
+                    <button mat-menu-item (click)="download(item)"><mat-icon>download</mat-icon><span>Download</span></button>
+                    <button mat-menu-item (click)="remove(item)" class="danger"><mat-icon>delete</mat-icon><span>Remove</span></button>
+                  </mat-menu>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="fileuploader-info">
+          Image specifications
+          <mat-icon [matTooltip]="'Image must be less than ' + cfg.maxFileSizeMB + ' MB. Allowed file types: ' + allowedTypesLabel + '.'"
+                    matTooltipPosition="after" class="help">error_outline</mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

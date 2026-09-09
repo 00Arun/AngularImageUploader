@@ -1,0 +1,45 @@
+{
+  "name": "angular-material-image-uploader",
+  "version": "2.0.0",
+  "description": "Angular Material image uploader with drag & drop, clipboard paste, multi-file batch cropping (free/fixed aspect ratios, rotate, flip, zoom), previews, reordering and upload progress. Angular 22, standalone, zoneless-ready.",
+  "keywords": [
+    "angular",
+    "angular-material",
+    "image",
+    "upload",
+    "uploader",
+    "cropper",
+    "crop",
+    "drag-and-drop",
+    "ngx-image-cropper",
+    "standalone",
+    "signals"
+  ],
+  "author": "Arun Pandey",
+  "license": "MIT",
+  "homepage": "https://github.com/00Arun/AngularImageUploader#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/00Arun/AngularImageUploader.git",
+    "directory": "image-uploader/projects/angular-material-image-uploader"
+  },
+  "bugs": {
+    "url": "https://github.com/00Arun/AngularImageUploader/issues"
+  },
+  "peerDependencies": {
+    "@angular/animations": "^22.0.0",
+    "@angular/cdk": "^22.0.0",
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "@angular/forms": "^22.0.0",
+    "@angular/material": "^22.0.0",
+    "@angular/platform-browser": "^22.0.0",
+    "ngx-image-cropper": "^9.0.0",
+    "ngx-toastr": ">=20.0.0",
+    "rxjs": "^7.8.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}
