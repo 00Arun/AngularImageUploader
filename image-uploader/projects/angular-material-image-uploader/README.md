@@ -1,6 +1,14 @@
 # angular-material-image-uploader
 
+[![npm version](https://img.shields.io/npm/v/angular-material-image-uploader.svg)](https://www.npmjs.com/package/angular-material-image-uploader)
+[![Angular](https://img.shields.io/badge/Angular-22-dd0031.svg)](https://angular.dev)
+[![license](https://img.shields.io/npm/l/angular-material-image-uploader.svg)](https://github.com/00Arun/AngularImageUploader/blob/master/image-uploader/projects/angular-material-image-uploader/LICENSE)
+
 Angular Material image uploader with a built-in batch cropper.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/00Arun/AngularImageUploader/master/docs/screenshots/list-uploading.png" alt="Uploader with three images uploading" width="720">
+</p>
 
 - Drag & drop, file picker, clipboard paste (Ctrl/Cmd+V)
 - Single or multiple upload, max files, max size, allowed types, duplicate check
@@ -13,6 +21,16 @@ Angular Material image uploader with a built-in batch cropper.
 - Angular 22, standalone components, signals, zoneless-ready
 
 > **v2 is a rewrite for Angular 22.** v1.x targets Angular 9. See [Upgrading from v1](#upgrading-from-v1).
+
+## Screenshots
+
+| Drop zone | Batch cropper |
+| --- | --- |
+| ![Drop zone](https://raw.githubusercontent.com/00Arun/AngularImageUploader/master/docs/screenshots/dropzone.png) | ![Cropper dialog with aspect ratio, rotate, flip, zoom and output controls](https://raw.githubusercontent.com/00Arun/AngularImageUploader/master/docs/screenshots/cropper.png) |
+
+| Settings panel | Preview |
+| --- | --- |
+| ![In-page settings panel](https://raw.githubusercontent.com/00Arun/AngularImageUploader/master/docs/screenshots/settings.png) | ![Preview lightbox](https://raw.githubusercontent.com/00Arun/AngularImageUploader/master/docs/screenshots/preview.png) |
 
 ## Installation
 

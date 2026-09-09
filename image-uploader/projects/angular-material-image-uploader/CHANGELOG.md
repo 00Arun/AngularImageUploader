@@ -3,6 +3,11 @@
 All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [2.0.1] - 2026-09-09
+
+### Changed
+- README: screenshots, badges, and a clearer setup walkthrough on the npm page. No code changes.
+
 ## [2.0.0] - 2026-09-09
 
 Complete rewrite for Angular 22. This is a breaking release; see "Upgrading from v1" in the README.
@@ -47,5 +52,6 @@ Complete rewrite for Angular 22. This is a breaking release; see "Upgrading from
 
 Last release of the Angular 9 line.
 
+[2.0.1]: https://github.com/00Arun/AngularImageUploader/releases/tag/v2.0.1
 [2.0.0]: https://github.com/00Arun/AngularImageUploader/releases/tag/v2.0.0
 [1.0.9]: https://www.npmjs.com/package/angular-material-image-uploader/v/1.0.9

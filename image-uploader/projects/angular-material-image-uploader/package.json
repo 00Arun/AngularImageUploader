@@ -1,6 +1,6 @@
 {
   "name": "angular-material-image-uploader",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Angular Material image uploader with drag & drop, clipboard paste, multi-file batch cropping (free/fixed aspect ratios, rotate, flip, zoom), previews, reordering and upload progress. Angular 22, standalone, zoneless-ready.",
   "keywords": [
     "angular",
