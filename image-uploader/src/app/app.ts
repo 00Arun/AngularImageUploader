@@ -23,7 +23,7 @@ export class App {
   config: Partial<UploaderConfig> = {
     multiple: true,             // false = one image, replaced on the next pick
     maxFiles: 10,
-    maxFileSizeMB: 5,
+    maxFileSizeMB: 15,
     allowedTypes: ['jpg', 'jpeg', 'png', 'webp'],
     cropBeforeAdd: true,        // open the cropper for every picked image
     allowSkipCrop: true,        // "Use original" button in the cropper

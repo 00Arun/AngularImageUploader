@@ -63,7 +63,7 @@ export interface UploaderConfig {
 export const DEFAULT_UPLOADER_CONFIG: UploaderConfig = {
   multiple: true,
   maxFiles: 10,
-  maxFileSizeMB: 5,
+  maxFileSizeMB: 15,
   allowedTypes: ['jpg', 'jpeg', 'png', 'webp'],
   cropBeforeAdd: true,
   allowSkipCrop: true,

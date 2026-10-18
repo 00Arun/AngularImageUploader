@@ -31,7 +31,7 @@ export const appConfig = { providers: [provideAngularMaterialImageUploader()] };
 
 ```html
 <app-angular-material-uploader
-  [config]="{ multiple: true, maxFiles: 10, maxFileSizeMB: 5, cropBeforeAdd: true }"
+  [config]="{ multiple: true, maxFiles: 10, maxFileSizeMB: 15, cropBeforeAdd: true }"
   [showSettingsButton]="true"
   (imageDetails)="getImageDetails($event)">
 </app-angular-material-uploader>

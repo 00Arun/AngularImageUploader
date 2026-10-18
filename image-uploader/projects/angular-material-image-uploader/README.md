@@ -101,7 +101,7 @@ export class App {
   config: Partial<UploaderConfig> = {
     multiple: true,
     maxFiles: 10,
-    maxFileSizeMB: 5,
+    maxFileSizeMB: 15,
     allowedTypes: ['jpg', 'jpeg', 'png', 'webp'],
     cropBeforeAdd: true,
     allowSkipCrop: true,
@@ -137,7 +137,7 @@ export class App {
 | --- | --- | --- | --- |
 | `multiple` | `boolean` | `true` | Allow several images. `false` keeps one image and replaces it on the next pick. |
 | `maxFiles` | `number` | `10` | Maximum number of images in the list (multiple mode only). |
-| `maxFileSizeMB` | `number` | `5` | Per-file size limit in MB. |
+| `maxFileSizeMB` | `number` | `15` | Per-file size limit in MB. |
 | `allowedTypes` | `string[]` | `['jpg','jpeg','png','webp']` | Accepted image subtypes. |
 | `cropBeforeAdd` | `boolean` | `true` | Open the cropper for every picked image before it is added. |
 | `allowSkipCrop` | `boolean` | `true` | Show a "Use original" button in the cropper. |
