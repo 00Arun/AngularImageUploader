@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@angular/build": "^22.1.7",
-    "@angular/cli": "^22.1.7",
+    "@angular/cli": "^22.2.3",
     "@angular/compiler-cli": "^22.1.0",
     "jsdom": "^30.0.1",
     "ng-packagr": "^22.1.0",
