@@ -26,7 +26,7 @@
     "ngx-image-cropper": "^9.1.7",
     "ngx-toastr": "^20.0.5",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.9.1"
   },
   "devDependencies": {
     "@angular/build": "^22.2.4",
